@@ -9,7 +9,7 @@ int main()
         if (c == 'q')          
         {
             printf("\tUser stopped the loop early at %d\n", i);
-            break;                  // break out of the for loop
+            continue;                  // break out of the for loop
         }
         printf("Loop counter = %d\n", i);
     }
