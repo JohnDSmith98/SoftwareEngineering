@@ -22,7 +22,7 @@ int main()
     }
 
     //Write a string to the file
-    outputStream << "12345" << endl;
+    outputStream << "Testing123" << endl;
     outputStream << "-----" << endl;
 
     //Close
