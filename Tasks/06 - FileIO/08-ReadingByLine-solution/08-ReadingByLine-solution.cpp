@@ -13,7 +13,7 @@ int main()
     //Let's create a file for test purposes
     createFile("myfile.txt");
 
-    // (i) Open for write
+    // (i) Open for read
     string fn = "myfile.txt";
     ifstream inputStream;
     inputStream.open(fn);
@@ -22,38 +22,40 @@ int main()
         return -1;
     }
 
-    /*
-    Hello COMP1000
-    --------------
-    Subject Area: COMP
-    Module ID: 1000
-    */
+    // (ii) Read line-by-line (separated by newline)
+    string nextLine;
+    string allLines;
 
-    // (ii) Read word-by-word (separated by spaces)
-    string fullText;
-    string nextWord;
-    inputStream >> nextWord;
-    while (inputStream.eof() == false) {
-        fullText = fullText + nextWord + " ";
-        inputStream >> nextWord;
+    //Read a complete line into the nextLine string
+    getline(inputStream, nextLine);
+
+    //Now add on the the allLines string
+    if (inputStream.fail() == false) {
+        cout << "Read in the line: " << nextLine;
+        allLines = allLines + nextLine + "\n";
     }
-    cout << fullText << endl;
-    // (iii) Close
+    else {
+        cout << "Did not read a line. End of File?" << endl;
+    }
+
+    //Use a loop to read all remaining lines
+    do {
+        //Read a line from the stream `inputString` into the string `nextLine`
+        getline(inputStream, nextLine);
+
+        //Did we successfully read a line?
+        if (!inputStream.fail()) {
+            //If so, append to the string `allLines` and add a newline character on the end
+            allLines = allLines + nextLine + "\n";
+        }
+        //The last read MIGHT include an EOF character
+    } while (!inputStream.eof());   //Loop condition is if we have NOT reached the end of the file
+
+    cout << endl << endl << "Complete String: " << endl << allLines << endl;
+
+    // (iii) Close the file
     inputStream.close();
 
-    //Find the preceding tag
-    size_t loc = fullText.find("ID:");
-    string remainingString = fullText.substr(loc);
-    cout << "Getting close? : " << endl;
-    cout << remainingString << endl;
-
-    //Read string word by word
-//    string nextWord;
-    istringstream iss(remainingString);
-    iss >> nextWord;
-    int moduleCode;
-    iss >> moduleCode;
-    cout << "Is the new module code " << moduleCode + 1 << " ?" << endl;
     return 0;
 }
 
@@ -75,19 +77,3 @@ void createFile(string fn)
     // (iii) Close
     outputStream.close();
 }
-
-/*
-
-    //Within each line, we can extract the individual words (separated by spaces)
-    istringstream iss(nextLine);          //Create a "string stream"
-    string nextWord;                      //Read first work from the string
-    iss >> nextWord;
-    cout << "Word 1:" << nextWord << endl;
-    iss >> nextWord;
-    cout << "Word 2:" << nextWord << endl;
-    iss >> nextWord;
-    if (iss.eof() == true) {
-        cout << "Ok, moving on..." << endl;
-    }
-
-*/

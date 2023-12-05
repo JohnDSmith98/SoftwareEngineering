@@ -26,28 +26,40 @@ int main()
     string nextLine;
     string allLines;
 
-    //Read remaining words
-    while (getline(inputStream, nextLine)) {
-        allLines = allLines + " " + nextLine;         //Append the string
-        cout << nextLine << endl;
+    //Read a complete line into the nextLine string
+    getline(inputStream, nextLine);
+    
+    //Now add on the the allLines string (if a line was read)
+    if (inputStream.fail() == false) {
+
+        //Display the line that was just read
+        cout << "Read in the line: " << nextLine;
+
+        // LOOK! This is how you "append" a string
+        allLines = allLines + nextLine + "\n";      //Add the newline character on the end
+
+    } else {
+        cout << "Failed to read a line." << endl;
     }
 
-    cout << "Complete String: " << allLines << endl;
+    if (inputStream.eof()) {
+        cout << "The last read found an EOF marker" << endl;
+    }
+
+    // Use a loop to read all remaining lines
+    // Hint - `inputStream.eof()` to check if the end of file character was read
+
+
+
+
+
+
+
+    // End of solution
+    cout << endl << endl << "Complete String: " << endl << allLines << endl;
 
     // (iii) Close the file
     inputStream.close();
-
-    // (iv) Find the Subject Code by searching for "Area:"
-    size_t location = allLines.find("Area:");
-    string remainingString = allLines.substr(location);
-    cout << remainingString << endl;
-
-    // (v) Use a "string stream" to extract individual words
-    istringstream iss(remainingString);          //Create a "string stream"
-    string nextWord;                             
-    iss >> nextWord;                            //Read next word from the string
-    iss >> nextWord;                            //Read next word from the string
-    cout << "Subject area is " << nextWord << endl;
 
     return 0;
 }
