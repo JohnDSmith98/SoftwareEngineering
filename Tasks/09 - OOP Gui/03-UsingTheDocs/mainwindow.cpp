@@ -6,6 +6,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    connect(ui->horizontalSlider, &QSlider::sliderMoved,this, &MainWindow::SliderUp);
 }
 
 MainWindow::~MainWindow()
@@ -13,3 +14,13 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::SliderUp(int u)
+{
+    QString S =QString("%1").arg(u);
+    ui->labelNumericValue->setText(S);
+}
+
+//void MainWindow::SliderDown()
+//{
+//
+//}

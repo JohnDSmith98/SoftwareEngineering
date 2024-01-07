@@ -20,5 +20,10 @@ public:
 private:
     Ui::MainWindow *ui;
 
+ private slots:
+   void SliderUp(int);
+  //  void SliderDown();
+
+
 };
 #endif // MAINWINDOW_H

@@ -23,5 +23,6 @@ private:
 private slots:
     void doButtonClick(bool);
     void doWiseSayingMenuClicked();
+    void Paste();
 };
 #endif // MAINWINDOW_H
